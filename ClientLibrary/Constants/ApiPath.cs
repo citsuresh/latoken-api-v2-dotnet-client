@@ -40,6 +40,7 @@
         public static string GetOrder(string orderId) => $"/{s_restVersion}/auth/order/getOrder/{orderId}";
         public static string TransferByUserId = $"/{s_restVersion}/auth/transfer/id";
         public static string SpotWithdraw = "/v2/auth/transfer/spot/withdraw";
+        public static string SpotDeposit = "/v2/auth/spot/deposit";
         public static string CancelAllOrders(string baseCurrency, string quoteCurrency) => $"{s_restVersion}/auth/order/cancelAll/{baseCurrency}/{quoteCurrency}";
 
         // AccountController Auth

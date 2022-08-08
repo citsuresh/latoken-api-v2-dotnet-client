@@ -170,6 +170,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<Transaction> SpotDeposit(SpotTransferCommand command)
+        {
+            var task = Post<Transaction>(ApiPath.SpotDeposit, command, true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<List<Balance>> GetBalances(bool zeros = true)
         {
             var task = Get<List<Balance>>(ApiPath.GetBalances(zeros), true);

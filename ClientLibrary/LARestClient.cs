@@ -64,6 +64,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<FeeScheme> GetFeeSchemeForPair(string baseCurrency, string quoteCurrency)
+        {
+            var task = Get<FeeScheme>(ApiPath.GetFeeSchemeForPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper()));
+            task.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<Currency> GetCurrency(string currency)
         {
             var task = Get<Currency>(ApiPath.GetCurrency(currency.ToUpper()));
@@ -116,8 +123,8 @@ namespace Latoken.Api.Client.Library
         /// <summary>
         /// Gets the clients trades for the given base currency quote currency pair.
         /// </summary>
-        /// <param name="baseCurrency">The base currency symbol name (Tag)</param>
-        /// <param name="quoteCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="baseCurrency">The base currency symbol ID or tag (Tag or ID)</param>
+        /// <param name="quoteCurrency">The base currency symbol ID or tag (Tag or ID)</param>
         /// <param name="from">Request trade history for given timestamp from and before (by default it is current timestamp). In milliseconds
         /// Gets the timestamp from which the trades have to be fetched in reverse timeline.</param>
         /// <param name="size">The number of trades to fetch from the given from timestamp.

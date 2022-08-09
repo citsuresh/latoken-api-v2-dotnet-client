@@ -1,6 +1,7 @@
 ﻿using Latoken.Api.Client.Library.Commands;
 using Latoken.Api.Client.Library.Constants;
 using Latoken.Api.Client.Library.Dto.Rest;
+using Latoken.Api.Client.Library.LA.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Latoken.Api.Client.Library
         Task<OrderBook> GetOrderBook(string baseCurrency, string quoteCurrency, int limit);
         Task<List<Pair>> GetPairs();
         Task<List<Pair>> GetAvailablePairs();
+        Task<FeeScheme> GetFeeSchemeForPair(string baseCurrency, string quoteCurrency);
         Task<Currency> GetCurrency(string currency);
         Task<List<Currency>> GetCurrencies();
         Task<List<Ticker>> GetTickers();
@@ -25,8 +27,8 @@ namespace Latoken.Api.Client.Library
         /// <summary>
         /// Gets the clients trades for the given base currency quote currency pair.
         /// </summary>
-        /// <param name="baseCurrency">The base currency symbol name (Tag)</param>
-        /// <param name="quoteCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="baseCurrency">The base currency symbol ID or tag (Tag or ID)</param>
+        /// <param name="quoteCurrency">The base currency symbol ID or tag (Tag or ID)</param>
         /// <param name="from">Request trade history for given timestamp from and before (by default it is current timestamp). In milliseconds
         /// Gets the timestamp from which the trades have to be fetched in reverse timeline.</param>
         /// <param name="size">The number of trades to fetch from the given from timestamp.

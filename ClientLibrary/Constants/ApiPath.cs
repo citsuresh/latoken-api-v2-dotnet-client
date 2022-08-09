@@ -11,6 +11,7 @@
         public static string GetPairs = $"/{s_restVersion}/pair";
 
         public static string GetAvailablePairs = $"/{s_restVersion}/pair/available";
+        public static string GetFeeSchemeForPair(string baseCurrency, string quoteCurrency) => $"/{s_restVersion}/trade/fee/{baseCurrency}/{quoteCurrency}";
 
         // CurrencyController 
         public static string GetCurrency(string currency) => $"/{s_restVersion}/currency/{currency}";

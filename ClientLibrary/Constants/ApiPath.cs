@@ -27,8 +27,8 @@
 
         // TradeController Auth
         public static string GetClientTrades(int page, int size) => $"/{s_restVersion}/auth/trade?page={page}&size={size}";
-        public static string GetClientTradesPair(string baseCurrency, string quoteCurrency, int page, int size) => 
-            $"/{s_restVersion}/auth/trade/pair/{baseCurrency}/{quoteCurrency}?page={page}&size={size}";
+        public static string GetClientTradesPair(string baseCurrency, string quoteCurrency, long from, int size) => 
+            $"/{s_restVersion}/auth/trade/pair/{baseCurrency}/{quoteCurrency}?from={from}&limit={size}";
 
         // OrderController Auth
         public static string GetOrders(int size) => $"/{s_restVersion}/auth/order?limit={size}";

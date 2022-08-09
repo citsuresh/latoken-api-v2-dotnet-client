@@ -21,7 +21,18 @@ namespace Latoken.Api.Client.Library
         Task<Rate> GetRate(string baseCurrency, string quoteCurrency);
         Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency);
         Task<List<Trade>> GetClientTrades(int page, int size);
-        Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, int page, int size);
+
+        /// <summary>
+        /// Gets the clients trades for the given base currency quote currency pair.
+        /// </summary>
+        /// <param name="baseCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="quoteCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="from">Request trade history for given timestamp from and before (by default it is current timestamp). In milliseconds
+        /// Gets the timestamp from which the trades have to be fetched in reverse timeline.</param>
+        /// <param name="size">The number of trades to fetch from the given from timestamp.
+        /// Use ToUnixTimeMilliseconds() function to get this long value.</param>
+        /// <returns>List of trades.</returns>
+        Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from, int size);
         Task<List<Order>> GetOrders(int size);
         Task<List<Order>> GetOrdersPair(string baseCurrency, string quoteCurrency, int page, int size);
         Task<OrderResponse> PlaceOrder(OrderCommand command);

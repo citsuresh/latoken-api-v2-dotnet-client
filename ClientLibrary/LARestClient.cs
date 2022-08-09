@@ -113,9 +113,19 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
-        public Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20)
+        /// <summary>
+        /// Gets the clients trades for the given base currency quote currency pair.
+        /// </summary>
+        /// <param name="baseCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="quoteCurrency">The base currency symbol name (Tag)</param>
+        /// <param name="from">Request trade history for given timestamp from and before (by default it is current timestamp). In milliseconds
+        /// Gets the timestamp from which the trades have to be fetched in reverse timeline.</param>
+        /// <param name="size">The number of trades to fetch from the given from timestamp.
+        /// Use ToUnixTimeMilliseconds() function to get this long value.</param>
+        /// <returns>List of trades.</returns>
+        public Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from = 0, int size = 20)
         {
-            var task = Get<List<Trade>>(ApiPath.GetClientTradesPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size), true);
+            var task = Get<List<Trade>>(ApiPath.GetClientTradesPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), from, size), true);
             task.ConfigureAwait(false);
             return task;
         }

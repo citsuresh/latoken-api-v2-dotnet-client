@@ -32,16 +32,37 @@ namespace Latoken.Api.Client.Library
         /// <param name="size">The number of trades to fetch from the given from timestamp.
         /// Use ToUnixTimeMilliseconds() function to get this long value.</param>
         /// <returns>List of trades.</returns>
-        Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from, int size);
+        Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from = 0, int size = 20);
         Task<List<Order>> GetOrders(int size);
         Task<List<Order>> GetOrdersPair(string baseCurrency, string quoteCurrency, int page, int size);
         Task<OrderResponse> PlaceOrder(OrderCommand command);
         Task<OrderResponse> CancelOrder(OrderIdCommand command);
         Task<Order> GetOrder(OrderIdCommand command);
-        Task<List<Balance>> GetBalances(bool zeros);
+        Task<List<Balance>> GetBalances(bool zeros = true);
         Task<CancelAllOrdersResponce> CancelAllOrders(string baseCurrency, string quoteCurrency);
         Task<LatokenUser> GetUser();        
         Task<Balance> GetBalanceByType(string currencyId, TypeOfAccount typeOfAccount);
+
+        /// <summary>
+        /// Transfer from Spot to Wallet for the current user;
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>Task.</returns>
+        Task<Transaction> SpotWithdraw(SpotTransferCommand command);
+
+        /// <summary>
+        /// Transfer from Wallet to Spot for the current user;
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>Task.</returns>
+        Task<Transaction> SpotDeposit(SpotTransferCommand command);
+
+        /// <summary>
+        /// Transfer assets from the wallet of one user account to another.
+        /// </summary>
+        /// <param name="command">The parameter that specifies the transfer parameters.</param>
+        /// <returns>Task.</returns>
+        Task<Transaction> TransferInternal(TransferCommand command);
 
         /// <summary>
         ///     Returns true if the REST client is ready to establish a connection

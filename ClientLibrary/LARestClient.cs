@@ -166,6 +166,11 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        /// <summary>
+        /// Transfer assets from the wallet of one user account to another.
+        /// </summary>
+        /// <param name="command">The parameter that specifies the transfer parameters.</param>
+        /// <returns>Task.</returns>
         public Task<Transaction> TransferInternal(TransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.TransferByUserId, command, true);
@@ -173,6 +178,11 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        /// <summary>
+        /// Transfer from Spot to Wallet for the current user;
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>Task.</returns>
         public Task<Transaction> SpotWithdraw(SpotTransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.SpotWithdraw, command, true);
@@ -180,6 +190,11 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        /// <summary>
+        /// Transfer from Wallet to Spot for the current user;
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>Task.</returns>
         public Task<Transaction> SpotDeposit(SpotTransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.SpotDeposit, command, true);

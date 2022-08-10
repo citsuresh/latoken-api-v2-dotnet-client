@@ -33,7 +33,9 @@
 
         // OrderController Auth
         public static string GetOrders(int size) => $"/{s_restVersion}/auth/order?limit={size}";
-        public static string GetOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
+        public static string GetAllOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
+            $"{s_restVersion}/auth/order/pair/{baseCurrency}/{quoteCurrency}";
+        public static string GetActiveOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
             $"{s_restVersion}/auth/order/pair/{baseCurrency}/{quoteCurrency}/active?size={size}&page={page}";
 
         public static string PlaceOrder = $"{s_restVersion}/auth/order/place";

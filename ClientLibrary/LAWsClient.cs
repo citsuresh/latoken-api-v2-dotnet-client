@@ -18,7 +18,7 @@ namespace Latoken.Api.Client.Library
 {
     public class LAWsClient : ILAWsClient, IDisposable
     {
-        private WebsocketClient _webSocket;        
+        private WebsocketClient _webSocket;
         private ClientCredentials _client;
         private bool _isDisposed;
         private int _stompConnected;
@@ -26,7 +26,10 @@ namespace Latoken.Api.Client.Library
         private Dictionary<string, int> _subscriptionNonces = new Dictionary<string, int>();
         private long _lastMessageTimestamp = DateTime.UnixEpoch.Ticks;
         private CancellationTokenSource _heartbeatStoppingToken;
-
+        private string LAWSOrdersSubscribeId;
+        private string LAWSAccountSubscribeId;
+        private string LAWSMyTradesSubscribeId;
+        private string LAWSOrderBookSubscribeId;
         private readonly ILogger<LAWsClient> _logger;
 
         public event Action OnOpened;
@@ -36,7 +39,7 @@ namespace Latoken.Api.Client.Library
         private const int HEARTBEAT_INTERVAL_MS = 10000;
 
         public LAWsClient(ClientCredentials client = null, bool autoReconnect = true, ILogger<LAWsClient> logger = null)
-        {   
+        {
             //should be 2 times more than stomp heartbeat delay 
             var timeout = TimeSpan.FromMilliseconds(HEARTBEAT_INTERVAL_MS);
             var factory = new Func<ClientWebSocket>(() => new ClientWebSocket
@@ -63,7 +66,7 @@ namespace Latoken.Api.Client.Library
             _webSocket.Start();
         }
 
-      
+
         private bool TryGetUTF8DecodedString(byte[] bytes, out string s)
         {
             s = null;
@@ -229,7 +232,7 @@ namespace Latoken.Api.Client.Library
             return false;
         }
 
-        
+
         public void Start()
         {
             if (CheckWSIsAlive())
@@ -261,28 +264,78 @@ namespace Latoken.Api.Client.Library
             }
         }
 
+        private void UnSubscribeStream(StompMessage unsubscriptionMessage, object streamEventsHandler)
+        {
+            if (CheckStompIsAlive())
+            {
+                var id = unsubscriptionMessage.Headers[LAHeaders.ID_HEADER];
+                if (_dataHandlers.ContainsKey(id))
+                {
+                    _webSocket.Send(StompMessageSerializer.Serialize(unsubscriptionMessage));
+                    _dataHandlers.Remove(id);
+                    _subscriptionNonces.Remove(id);
+                }
+            }
+        }
+
         public void SubscribeBalanceEvents(Action<List<Balance>, DateTime> balancesCallback)
         {
-            SubscribeStream(StompMessage.CreateSubsribeMessage(
-                                        ApiPath.LAWSAccount(_client.UserId, out var id), id), balancesCallback);
+            this.LAWSAccountSubscribeId = string.Empty;
+            SubscribeStream(StompMessage.CreateSubsribeMessage(ApiPath.LAWSAccount(_client.UserId, out this.LAWSAccountSubscribeId), this.LAWSAccountSubscribeId), balancesCallback);
         }
 
         public void SubscribeOrderEvents(Action<List<Order>, DateTime> ordersCallback)
         {
-            SubscribeStream(StompMessage.CreateSubsribeMessage(
-                                        ApiPath.LAWSOrders(_client.UserId, out var id), id), ordersCallback);
+            this.LAWSOrdersSubscribeId = string.Empty;
+            SubscribeStream(StompMessage.CreateSubsribeMessage(ApiPath.LAWSOrders(_client.UserId, out this.LAWSOrdersSubscribeId), this.LAWSOrdersSubscribeId), ordersCallback);
         }
 
         public void SubscribeMyTradeEvents(string baseId, string quoteId, Action<List<MyTrade>, DateTime> tradesCallback)
         {
-            SubscribeStream(StompMessage.CreateSubsribeMessage(
-                                        ApiPath.LAWSMyTrades(_client.UserId, baseId, quoteId, out var id), id), tradesCallback);
+            this.LAWSMyTradesSubscribeId = string.Empty;
+            SubscribeStream(StompMessage.CreateSubsribeMessage(ApiPath.LAWSMyTrades(_client.UserId, baseId, quoteId, out this.LAWSMyTradesSubscribeId), this.LAWSMyTradesSubscribeId), tradesCallback);
         }
 
         public void SubscribeOrderBookEvents(string baseId, string quoteId, Action<OrderBookChange, string, string, DateTime> orderbooksCallback)
         {
-            SubscribeStream(StompMessage.CreateSubsribeMessage(
-                                        ApiPath.LAWSOrderBook(baseId, quoteId, out var id), id), orderbooksCallback);
+            this.LAWSOrderBookSubscribeId = string.Empty;
+            SubscribeStream(StompMessage.CreateSubsribeMessage(ApiPath.LAWSOrderBook(baseId, quoteId, out this.LAWSOrderBookSubscribeId), this.LAWSOrderBookSubscribeId), orderbooksCallback);
+        }
+
+        public void UnSubscribeBalanceEvents(Action<List<Balance>, DateTime> balancesCallback)
+        {
+            if (!string.IsNullOrEmpty(this.LAWSAccountSubscribeId))
+            {
+                UnSubscribeStream(StompMessage.CreateUnsubscribeMessage(this.LAWSAccountSubscribeId), balancesCallback);
+                this.LAWSAccountSubscribeId = string.Empty;
+            }
+        }
+
+        public void UnSubscribeOrderEvents(Action<List<Order>, DateTime> ordersCallback)
+        {
+            if (!string.IsNullOrEmpty(this.LAWSOrdersSubscribeId))
+            {
+                UnSubscribeStream(StompMessage.CreateUnsubscribeMessage(this.LAWSOrdersSubscribeId), ordersCallback);
+                this.LAWSOrdersSubscribeId = string.Empty;
+            }
+        }
+
+        public void UnSubscribeMyTradeEvents(string baseId, string quoteId, Action<List<MyTrade>, DateTime> tradesCallback)
+        {
+            if (!string.IsNullOrEmpty(this.LAWSMyTradesSubscribeId))
+            {
+                UnSubscribeStream(StompMessage.CreateUnsubscribeMessage(this.LAWSMyTradesSubscribeId), tradesCallback);
+                this.LAWSMyTradesSubscribeId = string.Empty;
+            }
+        }
+
+        public void UnSubscribeOrderBookEvents(string baseId, string quoteId, Action<OrderBookChange, string, string, DateTime> orderbooksCallback)
+        {
+            if (!string.IsNullOrEmpty(this.LAWSOrderBookSubscribeId))
+            {
+                UnSubscribeStream(StompMessage.CreateUnsubscribeMessage(this.LAWSOrderBookSubscribeId), orderbooksCallback);
+                this.LAWSOrderBookSubscribeId = string.Empty;
+            }
         }
 
         private T DeserializeJsonFromMessage<T>(string message, string subscriptionId, out DateTime timestamp)

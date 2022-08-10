@@ -144,9 +144,17 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
-        public Task<List<Order>> GetOrdersPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20)
+        public Task<List<Order>> GetAllOrdersForPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20)
         {
-            var uri = ApiPath.GetOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
+            var uri = ApiPath.GetAllOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
+            var task = Get<List<Order>>(uri, true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
+        public Task<List<Order>> GetActiveOrdersForPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20)
+        {
+            var uri = ApiPath.GetActiveOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
             var task = Get<List<Order>>(uri, true);
             task.ConfigureAwait(false);
             return task;

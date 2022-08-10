@@ -36,13 +36,14 @@ namespace Latoken.Api.Client.Library
         /// <returns>List of trades.</returns>
         Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from = 0, int size = 20);
         Task<List<Order>> GetOrders(int size);
-        Task<List<Order>> GetOrdersPair(string baseCurrency, string quoteCurrency, int page, int size);
+        Task<List<Order>> GetAllOrdersForPair(string baseCurrency, string quoteCurrency, int page, int size);
+        Task<List<Order>> GetActiveOrdersForPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20);
         Task<OrderResponse> PlaceOrder(OrderCommand command);
         Task<OrderResponse> CancelOrder(OrderIdCommand command);
         Task<Order> GetOrder(OrderIdCommand command);
         Task<List<Balance>> GetBalances(bool zeros = true);
         Task<CancelAllOrdersResponce> CancelAllOrders(string baseCurrency, string quoteCurrency);
-        Task<LatokenUser> GetUser();        
+        Task<LatokenUser> GetUser();
         Task<Balance> GetBalanceByType(string currencyId, TypeOfAccount typeOfAccount);
 
         /// <summary>

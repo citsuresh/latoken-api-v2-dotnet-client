@@ -247,6 +247,25 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+
+        #region Trading competitions
+
+        public Task<TradingCompetitions> GetTradingCompetitions(int page = 0)
+        {
+            var task = Get<TradingCompetitions>(ApiPath.GetTradingCompetitionsApiPath(page), true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
+        public Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId)
+        {
+            var task = Get<TradingCompetitionUserPosition>(ApiPath.GetUserPsotionForTradingCompetitionApiPath(competitionId), true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
+        #endregion
+
         private Task<T> Get<T>(string url, bool auth = false)
         {
             var response = PerformRequest(HttpMethod.Get, url, auth);

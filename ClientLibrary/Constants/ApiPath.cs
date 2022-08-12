@@ -84,5 +84,11 @@
             id = $"{LAHeaders.ORDER_BOOK_ID}{s_stompSeparator}{baseId}{s_stompSeparator}{quoteId}";
             return $"/{s_wsVersion}/book/{baseId}/{quoteId}";
         }
+
+        //Trading competitions
+        public static string GetTradingCompetitionsApiPath(int page = 0) => $"/{s_restVersion}/tradingcompetition/active?page={page}";
+
+        public static string GetUserPsotionForTradingCompetitionApiPath(string competitionId) => $"/{s_restVersion}/auth/tradingcompetition/competitor/{competitionId}";
+
     }
 }

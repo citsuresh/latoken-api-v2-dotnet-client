@@ -36,6 +36,7 @@ namespace Latoken.Api.Client.Library
         /// <returns>List of trades.</returns>
         Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from = 0, int size = 20);
         Task<List<Order>> GetOrders(int size);
+        Task<List<Order>> GetOrdersFrom(long from = 0, int size = 1000);
         Task<List<Order>> GetAllOrdersForPair(string baseCurrency, string quoteCurrency, int page, int size);
         Task<List<Order>> GetActiveOrdersForPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20);
         Task<OrderResponse> PlaceOrder(OrderCommand command);

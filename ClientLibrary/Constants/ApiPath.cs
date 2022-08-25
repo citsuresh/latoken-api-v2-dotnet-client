@@ -32,6 +32,7 @@
             $"/{s_restVersion}/auth/trade/pair/{baseCurrency}/{quoteCurrency}?from={from}&limit={size}";
 
         // OrderController Auth
+        public static string GetOrdersFrom(long from, int size) => $"/{s_restVersion}/auth/order?from={from}&limit={size}";
         public static string GetOrders(int size) => $"/{s_restVersion}/auth/order?limit={size}";
         public static string GetAllOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
             $"{s_restVersion}/auth/order/pair/{baseCurrency}/{quoteCurrency}";

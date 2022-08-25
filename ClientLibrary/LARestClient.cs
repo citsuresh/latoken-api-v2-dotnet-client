@@ -30,9 +30,9 @@ namespace Latoken.Api.Client.Library
             // NOTE: latoken exchange will return 500 if response time exceeded  13 sec
             _httpClient.Timeout = TimeSpan.FromSeconds(15);
         }
-        
-        public LARestClient(ClientCredentials client, 
-                            HttpClient httpClient, 
+
+        public LARestClient(ClientCredentials client,
+                            HttpClient httpClient,
                             ILogger<LARestClient> logger) : this(client, httpClient)
         {
             _logger = logger;
@@ -144,6 +144,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<List<Order>> GetOrdersFrom(long from = 0, int size = 1000)
+        {
+            var task = Get<List<Order>>(ApiPath.GetOrdersFrom(from, size), true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<List<Order>> GetAllOrdersForPair(string baseCurrency, string quoteCurrency, int page = 0, int size = 20)
         {
             var uri = ApiPath.GetAllOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
@@ -238,7 +245,7 @@ namespace Latoken.Api.Client.Library
             task.ConfigureAwait(false);
             return task;
         }
-        
+
 
         public Task<Balance> GetBalanceByType(string currency, TypeOfAccount typeOfAccount)
         {
@@ -274,10 +281,10 @@ namespace Latoken.Api.Client.Library
 
         private Task<T> Post<T>(string url, object body, bool auth = false)
         {
-            var response =  PerformRequest(HttpMethod.Post, url, auth, body);
+            var response = PerformRequest(HttpMethod.Post, url, auth, body);
             return DeserializeJsonFromStream<T>(response.Result);
         }
-        
+
         private Task<HttpResponseMessage> PerformRequest(HttpMethod httpMethod, string url, bool auth = false, object body = null)
         {
             var request = new HttpRequestMessage(httpMethod, url);
@@ -289,17 +296,17 @@ namespace Latoken.Api.Client.Library
                 getParams = splitUrl[1];
 
             var postParams = string.Empty;
-            
+
             if (body != null)
             {
                 var json = JsonConvert.SerializeObject(body);
                 var content = new StringContent(json, Encoding.UTF8, LAHeaders.MediaType);
                 request.Content = content;
-                
+
                 var properties = from p in body.GetType().GetProperties()
-                    where p.GetValue(body, null) != null
-                    select p.GetCustomAttribute<JsonPropertyAttribute>().PropertyName + "=" +
-                           HttpUtility.UrlEncode(p.GetValue(body, null).ToString());
+                                 where p.GetValue(body, null) != null
+                                 select p.GetCustomAttribute<JsonPropertyAttribute>().PropertyName + "=" +
+                                        HttpUtility.UrlEncode(p.GetValue(body, null).ToString());
                 postParams = string.Join("&", properties.ToArray());
             }
 
@@ -308,41 +315,41 @@ namespace Latoken.Api.Client.Library
                 request.Headers.Add(LAHeaders.LA_APIKEY, _client.ApiKey);
                 path = new Uri(_httpClient.BaseAddress, path).AbsolutePath;
                 request.Headers.Add(LAHeaders.LA_SIGNATURE, SignatureService.CreateSignature(_client.ApiSecret, httpMethod + path + getParams + postParams));
-                request.Headers.Add(LAHeaders.LA_DIGEST, LAHeaders.HASH_ALGO);    
+                request.Headers.Add(LAHeaders.LA_DIGEST, LAHeaders.HASH_ALGO);
             }
 
             var response = _httpClient.SendAsync(request);
             return response;
         }
-        
+
         private async Task<T> DeserializeJsonFromStream<T>(HttpResponseMessage response, bool throwErrors = true)
         {
             if (response == null)
                 throw new ArgumentNullException(nameof(response));
-            
+
             LogErrorResponse(response);
-            
+
             var content = await response.Content?.ReadAsStringAsync();
 
-            if(!throwErrors)
+            if (!throwErrors)
                 return JsonConvert.DeserializeObject<T>(content);
-            
+
             if (response.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<T>(content);    
+                return JsonConvert.DeserializeObject<T>(content);
             }
-            
+
             throw new Exception(content);
         }
 
         private void LogErrorResponse(HttpResponseMessage response)
         {
-            
-            if(response.IsSuccessStatusCode) return;
-            
+
+            if (response.IsSuccessStatusCode) return;
+
             _logger?.LogError(
                 $"[{response.RequestMessage.Method.Method}] {response.RequestMessage.RequestUri} {(int)response.StatusCode} {response.ReasonPhrase} {response.Content?.ReadAsStringAsync().Result}");
-                               
+
         }
 
 
@@ -350,6 +357,6 @@ namespace Latoken.Api.Client.Library
         {
             _httpClient.Dispose();
             GC.SuppressFinalize(this);
-        }        
+        }
     }
 }

@@ -113,6 +113,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<OHLCChartData> GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to)
+        {
+            var task = Get<OHLCChartData>(ApiPath.GetChartData(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), resolution, from, to));
+            task.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<List<Trade>> GetClientTrades(int page = 0, int size = 20)
         {
             var task = Get<List<Trade>>(ApiPath.GetClientTrades(page, size), true);

@@ -22,6 +22,8 @@ namespace Latoken.Api.Client.Library
         Task<Ticker> GetTicker(string baseCurrency, string quoteCurrency);
         Task<Rate> GetRate(string baseCurrency, string quoteCurrency);
         Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency);
+        
+        Task<OHLCChartData> GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to);
         Task<List<Trade>> GetClientTrades(int page, int size);
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Latoken.Api.Client.Library
         /// <summary>
         ///     Returns true if the REST client is ready to establish a connection
         /// </summary>        
-        
+
         Task<TradingCompetitions> GetTradingCompetitions(int page = 0);
 
         Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId);

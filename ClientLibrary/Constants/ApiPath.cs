@@ -1,4 +1,6 @@
-﻿namespace Latoken.Api.Client.Library.Constants
+﻿using System.Net;
+
+namespace Latoken.Api.Client.Library.Constants
 {
     public static class ApiPath
     {
@@ -25,6 +27,9 @@
         // TradeController Public
         public static string GetAllTrades(string baseCurrency, string quoteCurrency) => 
             $"{s_restVersion}/trade/history/{baseCurrency}/{quoteCurrency}";
+
+        public static string GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to) =>
+            $"{s_restVersion}/tradingview/history?symbol={baseCurrency}%2F{quoteCurrency}&resolution={resolution}&from={from}&to={to}";
 
         // TradeController Auth
         public static string GetClientTrades(int page, int size) => $"/{s_restVersion}/auth/trade?page={page}&size={size}";

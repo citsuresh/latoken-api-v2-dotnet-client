@@ -106,9 +106,9 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
-        public Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency)
+        public Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency, int size = 100)
         {
-            var task = Get<List<Trade>>(ApiPath.GetAllTrades(baseCurrency.ToUpper(), quoteCurrency.ToUpper()));
+            var task = Get<List<Trade>>(ApiPath.GetAllTrades(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), size));
             task.ConfigureAwait(false);
             return task;
         }

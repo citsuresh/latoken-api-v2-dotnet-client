@@ -21,7 +21,7 @@ namespace Latoken.Api.Client.Library
         Task<List<Ticker>> GetTickers();
         Task<Ticker> GetTicker(string baseCurrency, string quoteCurrency);
         Task<Rate> GetRate(string baseCurrency, string quoteCurrency);
-        Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency);
+        Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency, int size = 100);
         
         Task<OHLCChartData> GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to);
         Task<List<Trade>> GetClientTrades(int page, int size);

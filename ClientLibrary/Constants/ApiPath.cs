@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Latoken.Api.Client.Library.Constants
+﻿namespace Latoken.Api.Client.Library.Constants
 {
     public static class ApiPath
     {
@@ -25,23 +23,23 @@ namespace Latoken.Api.Client.Library.Constants
         public static string GetRate(string baseCurrency, string quoteCurrency) => $"/{s_restVersion}/rate/{baseCurrency}/{quoteCurrency}";
 
         // TradeController Public
-        public static string GetAllTrades(string baseCurrency, string quoteCurrency) => 
-            $"{s_restVersion}/trade/history/{baseCurrency}/{quoteCurrency}";
+        public static string GetAllTrades(string baseCurrency, string quoteCurrency, int size) =>
+            $"{s_restVersion}/trade/history/{baseCurrency}/{quoteCurrency}?limit={size}";
 
         public static string GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to) =>
             $"{s_restVersion}/tradingview/history?symbol={baseCurrency}%2F{quoteCurrency}&resolution={resolution}&from={from}&to={to}";
 
         // TradeController Auth
         public static string GetClientTrades(int page, int size) => $"/{s_restVersion}/auth/trade?page={page}&size={size}";
-        public static string GetClientTradesPair(string baseCurrency, string quoteCurrency, long from, int size) => 
+        public static string GetClientTradesPair(string baseCurrency, string quoteCurrency, long from, int size) =>
             $"/{s_restVersion}/auth/trade/pair/{baseCurrency}/{quoteCurrency}?from={from}&limit={size}";
 
         // OrderController Auth
         public static string GetOrdersFrom(long from, int size) => $"/{s_restVersion}/auth/order?from={from}&limit={size}";
         public static string GetOrders(int size) => $"/{s_restVersion}/auth/order?limit={size}";
-        public static string GetAllOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
+        public static string GetAllOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) =>
             $"{s_restVersion}/auth/order/pair/{baseCurrency}/{quoteCurrency}";
-        public static string GetActiveOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) => 
+        public static string GetActiveOrdersPair(string baseCurrency, string quoteCurrency, int page, int size) =>
             $"{s_restVersion}/auth/order/pair/{baseCurrency}/{quoteCurrency}/active?size={size}&page={page}";
 
         public static string PlaceOrder = $"{s_restVersion}/auth/order/place";
@@ -54,7 +52,7 @@ namespace Latoken.Api.Client.Library.Constants
 
         // AccountController Auth
         public static string GetBalances(bool zeros) => $"/{s_restVersion}/auth/account?zeros={zeros}";
-        public static string GetUser => $"/{s_restVersion}/auth/user";        
+        public static string GetUser => $"/{s_restVersion}/auth/user";
         public static string GetBalancesByType(string currency, string typeOfAccount) => $"/{s_restVersion}/auth/account/currency/{currency}/{typeOfAccount}";
 
 

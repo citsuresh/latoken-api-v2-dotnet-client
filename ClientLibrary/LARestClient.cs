@@ -271,6 +271,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<TradingCompetitionLeaderBoardPositions> GetTradingCompetitionLeaderBoardPosition(string competitionId, int page, int size)
+        {
+            var task = Get<TradingCompetitionLeaderBoardPositions>(ApiPath.GetTradingCompetitionLeaderBoardApiPath(competitionId, page, size), true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId)
         {
             var task = Get<TradingCompetitionUserPosition>(ApiPath.GetUserPsotionForTradingCompetitionApiPath(competitionId), true);

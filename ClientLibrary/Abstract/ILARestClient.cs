@@ -79,5 +79,7 @@ namespace Latoken.Api.Client.Library
         Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId);
 
         bool IsReady();
+
+        Task<TradingCompetitionLeaderBoardPositions> GetTradingCompetitionLeaderBoardPosition(string competitionId, int page, int size);
     }
 }

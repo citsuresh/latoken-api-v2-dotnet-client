@@ -94,5 +94,6 @@
 
         public static string GetUserPsotionForTradingCompetitionApiPath(string competitionId) => $"/{s_restVersion}/auth/tradingcompetition/competitor/{competitionId}";
 
+        public static string GetTradingCompetitionLeaderBoardApiPath(string competitionId, int page, int size) => $"/{s_restVersion}/auth/tradingcompetition/competitors/{competitionId}?page={page}&size={size}";
     }
 }

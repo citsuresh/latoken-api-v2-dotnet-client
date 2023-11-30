@@ -45,6 +45,7 @@ namespace Latoken.Api.Client.Library
         Task<OrderResponse> CancelOrder(OrderIdCommand command);
         Task<Order> GetOrder(OrderIdCommand command);
         Task<List<Balance>> GetBalances(bool zeros = true);
+        Task<Transfers> GetTransfers(int page = 0);
         Task<CancelAllOrdersResponce> CancelAllOrders(string baseCurrency, string quoteCurrency);
         Task<LatokenUser> GetUser();
         Task<Balance> GetBalanceByType(string currencyId, TypeOfAccount typeOfAccount);

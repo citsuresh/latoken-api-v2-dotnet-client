@@ -239,6 +239,14 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<Transfers> GetTransfers(int page = 0)
+        {
+            var task = Get<Transfers>(ApiPath.GetAllTransfers(page), true);
+            task.ConfigureAwait(false);
+
+            return task;
+        }
+
         public Task<LatokenUser> GetUser()
         {
             var task = Get<LatokenUser>(ApiPath.GetUser, true);
@@ -289,8 +297,23 @@ namespace Latoken.Api.Client.Library
 
         private Task<T> Get<T>(string url, bool auth = false)
         {
-            var response = PerformRequest(HttpMethod.Get, url, auth);
-            return DeserializeJsonFromStream<T>(response.Result);
+            Task<T> returnValue = default(Task<T>);
+            try
+            {
+                var response = PerformRequest(HttpMethod.Get, url, auth);
+                if (response != null)
+                {
+                    returnValue = DeserializeJsonFromStream<T>(response.Result);
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return returnValue;
         }
 
         private Task<T> Post<T>(string url, object body, bool auth = false)

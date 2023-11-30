@@ -52,6 +52,7 @@
 
         // AccountController Auth
         public static string GetBalances(bool zeros) => $"/{s_restVersion}/auth/account?zeros={zeros}";
+        public static string GetAllTransfers(int page = 0) => $"/{s_restVersion}/auth/transfer?page={page}";
         public static string GetUser => $"/{s_restVersion}/auth/user";
         public static string GetBalancesByType(string currency, string typeOfAccount) => $"/{s_restVersion}/auth/account/currency/{currency}/{typeOfAccount}";
 

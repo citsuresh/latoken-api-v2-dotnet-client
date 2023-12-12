@@ -75,12 +75,15 @@ namespace Latoken.Api.Client.Library
         ///     Returns true if the REST client is ready to establish a connection
         /// </summary>        
 
-        Task<TradingCompetitions> GetTradingCompetitions(int page = 0);
+        Task<TradingCompetitions> GetActiveTradingCompetitions(int page = 0, int size = 10);
+
+        Task<List<TradingCompetition>> GetAllTradingCompetitions(int page = 0, int size = 10);
 
         Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId);
 
         bool IsReady();
 
         Task<TradingCompetitionLeaderBoardPositions> GetTradingCompetitionLeaderBoardPosition(string competitionId, int page, int size);
+ 
     }
 }

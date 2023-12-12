@@ -272,9 +272,16 @@ namespace Latoken.Api.Client.Library
 
         #region Trading competitions
 
-        public Task<TradingCompetitions> GetTradingCompetitions(int page = 0)
+        public Task<TradingCompetitions> GetActiveTradingCompetitions(int page = 0, int size = 10)
         {
-            var task = Get<TradingCompetitions>(ApiPath.GetTradingCompetitionsApiPath(page), true);
+            var task = Get<TradingCompetitions>(ApiPath.GetActiveTradingCompetitionsApiPath(page, size), true);
+            task.ConfigureAwait(false);
+            return task;
+        }
+
+        public Task<List<TradingCompetition>> GetAllTradingCompetitions(int page = 0, int size = 10)
+        {
+            var task = Get<List<TradingCompetition>>(ApiPath.GetAllTradingCompetitionsApiPath(page, size), true);
             task.ConfigureAwait(false);
             return task;
         }

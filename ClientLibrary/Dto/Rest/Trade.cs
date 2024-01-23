@@ -7,6 +7,9 @@ namespace Latoken.Api.Client.Library
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
+        [JsonProperty(PropertyName = "isMakerBuyer")]
+        public bool IsMakerBuyer { get; set; }
+
         [JsonProperty(PropertyName = "direction")]
         public string Direction { get; set; }
 
@@ -25,7 +28,16 @@ namespace Latoken.Api.Client.Library
         [JsonProperty(PropertyName = "cost")]
         public decimal Cost { get; set; }
 
+        [JsonProperty(PropertyName = "fee")]
+        public decimal Fee { get; set; }
+
+        [JsonProperty(PropertyName = "order")]
+        public string OrderID { get; set; }
+
         [JsonProperty(PropertyName = "timestamp")]
         public long Timestamp { get; set; }
+
+        [JsonProperty(PropertyName = "makerBuyer")]
+        public bool MakerBuyer { get; set; }
     }
 }

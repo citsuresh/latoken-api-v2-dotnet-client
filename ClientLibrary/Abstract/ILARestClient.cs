@@ -77,6 +77,8 @@ namespace Latoken.Api.Client.Library
 
         Task<TradingCompetitions> GetActiveTradingCompetitions(int page = 0, int size = 10);
 
+        Task<TradingCompetition> GetTradingCompetition(string competitionId);
+
         Task<List<TradingCompetition>> GetAllTradingCompetitions(int page = 0, int size = 10);
 
         Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId);

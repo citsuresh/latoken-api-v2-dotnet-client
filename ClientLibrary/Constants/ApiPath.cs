@@ -93,6 +93,8 @@
         //Trading competitions
         public static string GetActiveTradingCompetitionsApiPath(int page = 0, int size = 10) => $"/{s_restVersion}/tradingcompetition/active?page={page}&size={size}";
         
+        public static string GetTradingCompetitionApiPath(string competitionId) => $"/{s_restVersion}/tradingcompetition/{competitionId}";
+        
         public static string GetAllTradingCompetitionsApiPath(int page = 0, int size = 10) => $"/{s_restVersion}/tradingcompetition/all?page={page}&size={size}";
 
         public static string GetUserPsotionForTradingCompetitionApiPath(string competitionId) => $"/{s_restVersion}/auth/tradingcompetition/competitor/{competitionId}";

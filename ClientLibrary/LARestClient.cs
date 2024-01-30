@@ -279,6 +279,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<TradingCompetition> GetTradingCompetition(string competitionId)
+        {
+            var task = Get<TradingCompetition>(ApiPath.GetTradingCompetitionApiPath(competitionId), true);
+            task?.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<List<TradingCompetition>> GetAllTradingCompetitions(int page = 0, int size = 10)
         {
             var task = Get<List<TradingCompetition>>(ApiPath.GetAllTradingCompetitionsApiPath(page, size), true);

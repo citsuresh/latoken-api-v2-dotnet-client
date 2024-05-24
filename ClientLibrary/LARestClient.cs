@@ -46,84 +46,84 @@ namespace Latoken.Api.Client.Library
         public Task<OrderBook> GetOrderBook(string baseCurrency, string quoteCurrency, int limit = 100)
         {
             var task = Get<OrderBook>(ApiPath.GetOrderBook(baseCurrency, quoteCurrency, limit));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Pair>> GetPairs()
         {
             var task = Get<List<Pair>>(ApiPath.GetPairs);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Pair>> GetAvailablePairs()
         {
             var task = Get<List<Pair>>(ApiPath.GetAvailablePairs);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<FeeScheme> GetFeeSchemeForPair(string baseCurrency, string quoteCurrency)
         {
             var task = Get<FeeScheme>(ApiPath.GetFeeSchemeForPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper()));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<Currency> GetCurrency(string currency)
         {
             var task = Get<Currency>(ApiPath.GetCurrency(currency.ToUpper()));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Currency>> GetCurrencies()
         {
             var task = Get<List<Currency>>(ApiPath.GetCurrencies);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Ticker>> GetTickers()
         {
             var task = Get<List<Ticker>>(ApiPath.GetTickers);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<Ticker> GetTicker(string baseCurrency, string quoteCurrency)
         {
             var task = Get<Ticker>(ApiPath.GetTicker(baseCurrency.ToUpper(), quoteCurrency.ToUpper()));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<Rate> GetRate(string baseCurrency, string quoteCurrency)
         {
             var task = Get<Rate>(ApiPath.GetRate(baseCurrency, quoteCurrency));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency, int size = 100)
         {
             var task = Get<List<Trade>>(ApiPath.GetAllTrades(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), size));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<OHLCChartData> GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to)
         {
             var task = Get<OHLCChartData>(ApiPath.GetChartData(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), resolution, from, to));
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Trade>> GetClientTrades(int page = 0, int size = 20)
         {
             var task = Get<List<Trade>>(ApiPath.GetClientTrades(page, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -140,21 +140,21 @@ namespace Latoken.Api.Client.Library
         public Task<List<Trade>> GetClientTradesPair(string baseCurrency, string quoteCurrency, long from = 0, int size = 20)
         {
             var task = Get<List<Trade>>(ApiPath.GetClientTradesPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), from, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Order>> GetOrders(int size = 100)
         {
             var task = Get<List<Order>>(ApiPath.GetOrders(size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Order>> GetOrdersFrom(long from = 0, int size = 1000)
         {
             var task = Get<List<Order>>(ApiPath.GetOrdersFrom(from, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -162,7 +162,7 @@ namespace Latoken.Api.Client.Library
         {
             var uri = ApiPath.GetAllOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
             var task = Get<List<Order>>(uri, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -170,28 +170,28 @@ namespace Latoken.Api.Client.Library
         {
             var uri = ApiPath.GetActiveOrdersPair(baseCurrency.ToUpper(), quoteCurrency.ToUpper(), page, size);
             var task = Get<List<Order>>(uri, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<OrderResponse> PlaceOrder(OrderCommand command)
         {
             var task = Post<OrderResponse>(ApiPath.PlaceOrder, command, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<OrderResponse> CancelOrder(OrderIdCommand command)
         {
             var task = Post<OrderResponse>(ApiPath.CancelOrder, command, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<Order> GetOrder(OrderIdCommand command)
         {
             var task = Get<Order>(ApiPath.GetOrder(command.Id), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -203,7 +203,7 @@ namespace Latoken.Api.Client.Library
         public Task<Transaction> TransferInternal(TransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.TransferByUserId, command, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -215,7 +215,7 @@ namespace Latoken.Api.Client.Library
         public Task<Transaction> SpotWithdraw(SpotTransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.SpotWithdraw, command, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -227,14 +227,14 @@ namespace Latoken.Api.Client.Library
         public Task<Transaction> SpotDeposit(SpotTransferCommand command)
         {
             var task = Post<Transaction>(ApiPath.SpotDeposit, command, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<List<Balance>> GetBalances(bool zeros = true)
         {
             var task = Get<List<Balance>>(ApiPath.GetBalances(zeros), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
 
             return task;
         }
@@ -242,7 +242,7 @@ namespace Latoken.Api.Client.Library
         public Task<Transfers> GetTransfers(int page = 0)
         {
             var task = Get<Transfers>(ApiPath.GetAllTransfers(page), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
 
             return task;
         }
@@ -250,14 +250,14 @@ namespace Latoken.Api.Client.Library
         public Task<LatokenUser> GetUser()
         {
             var task = Get<LatokenUser>(ApiPath.GetUser, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<CancelAllOrdersResponce> CancelAllOrders(string baseCurrency, string quoteCurrency)
         {
             var task = Post<CancelAllOrdersResponce>(ApiPath.CancelAllOrders(baseCurrency, quoteCurrency), null, true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -265,7 +265,7 @@ namespace Latoken.Api.Client.Library
         public Task<Balance> GetBalanceByType(string currency, TypeOfAccount typeOfAccount)
         {
             var task = Get<Balance>(ApiPath.GetBalancesByType(currency, typeOfAccount.ToString()), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -275,7 +275,7 @@ namespace Latoken.Api.Client.Library
         public Task<TradingCompetitions> GetActiveTradingCompetitions(int page = 0, int size = 10)
         {
             var task = Get<TradingCompetitions>(ApiPath.GetActiveTradingCompetitionsApiPath(page, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
@@ -289,21 +289,21 @@ namespace Latoken.Api.Client.Library
         public Task<List<TradingCompetition>> GetAllTradingCompetitions(int page = 0, int size = 10)
         {
             var task = Get<List<TradingCompetition>>(ApiPath.GetAllTradingCompetitionsApiPath(page, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<TradingCompetitionLeaderBoardPositions> GetTradingCompetitionLeaderBoardPosition(string competitionId, int page, int size)
         {
             var task = Get<TradingCompetitionLeaderBoardPositions>(ApiPath.GetTradingCompetitionLeaderBoardApiPath(competitionId, page, size), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 
         public Task<TradingCompetitionUserPosition> GetUserPositionForTradingCompetition(string competitionId)
         {
             var task = Get<TradingCompetitionUserPosition>(ApiPath.GetUserPsotionForTradingCompetitionApiPath(competitionId), true);
-            task.ConfigureAwait(false);
+            task?.ConfigureAwait(false);
             return task;
         }
 

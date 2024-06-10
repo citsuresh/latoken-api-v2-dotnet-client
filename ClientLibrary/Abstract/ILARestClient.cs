@@ -24,7 +24,7 @@ namespace Latoken.Api.Client.Library
         Task<List<Trade>> GetAllTrades(string baseCurrency, string quoteCurrency, int size = 100);
         
         Task<OHLCChartData> GetChartData(string baseCurrency, string quoteCurrency, string resolution, long from, long to);
-        Task<List<Trade>> GetClientTrades(int page, int size);
+        Task<List<Trade>> GetClientTrades(long from, int size);
 
         /// <summary>
         /// Gets the clients trades for the given base currency quote currency pair.

@@ -120,9 +120,9 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
-        public Task<List<Trade>> GetClientTrades(int page = 0, int size = 20)
+        public Task<List<Trade>> GetClientTrades(long from, int size = 20)
         {
-            var task = Get<List<Trade>>(ApiPath.GetClientTrades(page, size), true);
+            var task = Get<List<Trade>>(ApiPath.GetClientTrades(from, size), true);
             task?.ConfigureAwait(false);
             return task;
         }

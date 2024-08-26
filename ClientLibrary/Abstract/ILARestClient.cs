@@ -76,6 +76,8 @@ namespace Latoken.Api.Client.Library
         /// </summary>        
 
         Task<TradingCompetitions> GetActiveTradingCompetitions(int page = 0, int size = 10);
+        
+        Task<List<Airdrop>> GetActiveAirdrops();
 
         Task<TradingCompetition> GetTradingCompetition(string competitionId);
 

@@ -279,6 +279,13 @@ namespace Latoken.Api.Client.Library
             return task;
         }
 
+        public Task<List<Airdrop>> GetActiveAirdrops()
+        {
+            var task = Get<List<Airdrop>>(ApiPath.GetActiveAirdropsApiPath(), true);
+            task?.ConfigureAwait(false);
+            return task;
+        }
+
         public Task<TradingCompetition> GetTradingCompetition(string competitionId)
         {
             var task = Get<TradingCompetition>(ApiPath.GetTradingCompetitionApiPath(competitionId), true);

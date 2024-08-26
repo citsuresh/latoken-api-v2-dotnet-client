@@ -92,7 +92,9 @@
 
         //Trading competitions
         public static string GetActiveTradingCompetitionsApiPath(int page = 0, int size = 10) => $"/{s_restVersion2}/tradingcompetition/active?page={page}&size={size}";
-        
+
+        public static string GetActiveAirdropsApiPath(int page = 0, int size = 10) => $"/{s_restVersion2}/airdrop/bot/activeReferralAirdrops";
+
         public static string GetTradingCompetitionApiPath(string competitionId) => $"/{s_restVersion2}/tradingcompetition/{competitionId}";
         
         public static string GetAllTradingCompetitionsApiPath(int page = 0, int size = 10) => $"/{s_restVersion2}/tradingcompetition/all?page={page}&size={size}";

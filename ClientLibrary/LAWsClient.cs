@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Websocket.Client;
-using Websocket.Client.Models;
 
 namespace Latoken.Api.Client.Library
 {
